@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/paddycakes/arranmore-api/internal/database"
 	transportHTTP "github.com/paddycakes/arranmore-api/internal/transport/http"
 	"net/http"
 )
@@ -13,6 +14,12 @@ type App struct {}
 // Run - sets up Arranmore REST API
 func (app *App) Run() error  {
 	fmt.Println("Setting up Arranore REST API")
+
+	var err error
+	_, err = database.NewDatabase()
+	if err != nil {
+		return err
+	}
 
 	handler := transportHTTP.NewHandler()
 	handler.SetupRoutes()
