@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/paddycakes/arranmore-api/internal/database"
+	"github.com/paddycakes/arranmore-api/internal/sensor"
 	transportHTTP "github.com/paddycakes/arranmore-api/internal/transport/http"
 	"net/http"
 )
@@ -21,7 +22,9 @@ func (app *App) Run() error  {
 		return err
 	}
 
-	handler := transportHTTP.NewHandler()
+	sensorService := sensor.NewService()
+
+	handler := transportHTTP.NewHandler(sensorService)
 	handler.SetupRoutes()
 
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
