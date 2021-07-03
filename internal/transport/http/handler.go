@@ -48,7 +48,6 @@ func (h *Handler) SetupRoutes() {
 // GetSensorMetrics - retrieve metrics for sensor ID
 func (h *Handler) GetSensorMetrics(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
 	
 	vars := mux.Vars(r)
 	id := vars["id"]	// Will this be id / clientId ?
@@ -56,16 +55,19 @@ func (h *Handler) GetSensorMetrics(w http.ResponseWriter, r *http.Request) {
 	i, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
 		sendErrorResponse(w, "Unable to parse UInt from ID", err)
+		return
 	}
 
 	metrics, err := h.Service.GetMetrics(uint(i))
 	if err != nil {
 		sendErrorResponse(w, "Error Retrieving Sensor Metrics for Client ID", err)
+		return
 	}
 	
 	if err := json.NewEncoder(w).Encode(metrics); err != nil {
 		panic(err)
 	}
+	w.WriteHeader(http.StatusOK)
 }
 
 func sendErrorResponse(w http.ResponseWriter, message string, err error) {

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/paddycakes/arranmore-api/internal/database"
 	"github.com/paddycakes/arranmore-api/internal/sensor"
 	transportHTTP "github.com/paddycakes/arranmore-api/internal/transport/http"
 	"net/http"
@@ -16,11 +15,11 @@ type App struct {}
 func (app *App) Run() error  {
 	fmt.Println("Setting up Arranore REST API")
 
-	var err error
-	_, err = database.NewDatabase()
-	if err != nil {
-		return err
-	}
+	//var err error
+	//_, err = database.NewDatabase()
+	//if err != nil {
+	//	return err
+	//}
 
 	sensorService := sensor.NewService()
 
