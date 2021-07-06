@@ -19,7 +19,7 @@ func (service *Service) GetMetrics(ID uint) ([]Metric, error) {
 	var metrics []Metric
 	metrics = append(metrics, Metric{
 		Name: "Humidity",
-		Value: 123,
+		Value: 789,
 	})
 	return metrics, nil
 }
