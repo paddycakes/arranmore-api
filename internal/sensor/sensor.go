@@ -18,8 +18,8 @@ func (service *Service) GetMetrics(ID uint) ([]Metric, error) {
 	// TODO: This should maybe take a date range as well
 	var metrics []Metric
 	metrics = append(metrics, Metric{
-		Name: "Humidity",
-		Value: 123,
+		Name: "Temperature",
+		Value: 28,
 	})
 	return metrics, nil
 }
