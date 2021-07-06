@@ -8,6 +8,13 @@
         "gcr.io/arranmore-api/arranmore-api",
         "."
       ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "gcr.io/arranmore-api/arranmore-api",
+      ],
     }
   ]
 }
