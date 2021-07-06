@@ -8,9 +8,22 @@
         "gcr.io/arranmore-api/arranmore-api",
         "."
       ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "arranmore-api",
+        "--image", "gcr.io/arranmore-api/arranmore-api",
+        "--platform", "managed",
+        "--region", "europe-west2",
+        "--allow-unauthenticated"
+      ]
     }
   ],
   "images": [
     "gcr.io/arranmore-api/arranmore-api"
-  ]
+  ],
+  "timeout": "3600s"
 }
