@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/handlers"
 	"github.com/paddycakes/arranmore-api/internal/sensor"
 	transportHTTP "github.com/paddycakes/arranmore-api/internal/transport/http"
 	"net/http"
+	"os"
 )
 
 // App - the struct which contains things
@@ -26,7 +28,13 @@ func (app *App) Run() error  {
 	handler := transportHTTP.NewHandler(sensorService)
 	handler.SetupRoutes()
 
-	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
+	// Where ORIGIN_ALLOWED is like `scheme://dns[:port]`, or `*` (insecure)
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	// Need to sort this out
+	originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+
+	if err := http.ListenAndServe(":8080", handlers.CORS(headersOk, originsOk, methodsOk)(handler.Router)); err != nil {
 		fmt.Println("Failed to setup server")
 		return err
 	}
