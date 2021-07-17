@@ -29,7 +29,7 @@ func (app *App) Run() error  {
 
 	// Where ORIGIN_ALLOWED is like `scheme://dns[:port]`, or `*` (insecure)
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With"})
-	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT"})
 	// Need to sort this out
 	// origins := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
 	origins := handlers.AllowedOrigins([]string{"*"})
