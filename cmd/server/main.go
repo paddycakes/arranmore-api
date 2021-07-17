@@ -6,7 +6,6 @@ import (
 	"github.com/paddycakes/arranmore-api/internal/sensor"
 	transportHTTP "github.com/paddycakes/arranmore-api/internal/transport/http"
 	"net/http"
-	"os"
 )
 
 // App - the struct which contains things
@@ -31,7 +30,8 @@ func (app *App) Run() error  {
 	// Where ORIGIN_ALLOWED is like `scheme://dns[:port]`, or `*` (insecure)
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
 	// Need to sort this out
-	originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	// originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	originsOk := handlers.AllowedOrigins([]string{"http://localhost:8080"})
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 
 	if err := http.ListenAndServe(":8080", handlers.CORS(headersOk, originsOk, methodsOk)(handler.Router)); err != nil {
