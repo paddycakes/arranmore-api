@@ -31,7 +31,7 @@ func (app *App) Run() error  {
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
 	// Need to sort this out
 	// originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
-	originsOk := handlers.AllowedOrigins([]string{"http://localhost:8080"})
+	originsOk := handlers.AllowedOrigins([]string{"https://arranmore-api.nw.r.appspot.com"})
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 
 	if err := http.ListenAndServe(":8080", handlers.CORS(headersOk, originsOk, methodsOk)(handler.Router)); err != nil {
