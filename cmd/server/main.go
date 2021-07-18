@@ -28,13 +28,13 @@ func (app *App) Run() error  {
 	handler.SetupRoutes()
 
 	// Where ORIGIN_ALLOWED is like `scheme://dns[:port]`, or `*` (insecure)
-	headers := handlers.AllowedHeaders([]string{"X-Requested-With"})
-	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT"})
+	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type"})
+	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 	// Need to sort this out
 	// origins := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
 	origins := handlers.AllowedOrigins([]string{"*"})
 
-	if err := http.ListenAndServe(":8080", handlers.CORS(headers, methods, origins)(handler.Router)); err != nil {
+	if err := http.ListenAndServe(":1234", handlers.CORS(headers, methods, origins)(handler.Router)); err != nil {
 		fmt.Println("Failed to setup server")
 		return err
 	}

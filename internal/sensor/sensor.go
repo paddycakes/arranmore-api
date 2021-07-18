@@ -1,5 +1,7 @@
 package sensor
 
+import "fmt"
+
 type Service struct {}
 
 // Metric - a sensor metric
@@ -21,5 +23,6 @@ func (service *Service) GetMetrics(ID uint) ([]Metric, error) {
 		Name: "Temperature",
 		Value: 28,
 	})
+	fmt.Println("Returning metrics")
 	return metrics, nil
 }
