@@ -34,7 +34,8 @@ func (app *App) Run() error  {
 	// origins := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
 	origins := handlers.AllowedOrigins([]string{"*"})
 
-	if err := http.ListenAndServe(":8080", handlers.CORS(headers, methods, origins)(handler.Router)); err != nil {
+	// TODO: Need to sort out the port here .. may need to get from environment. Issue when running locally as both FE/BE are on :8080
+	if err := http.ListenAndServe(":1234", handlers.CORS(headers, methods, origins)(handler.Router)); err != nil {
 		fmt.Println("Failed to setup server")
 		return err
 	}
