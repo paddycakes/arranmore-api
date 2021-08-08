@@ -31,10 +31,10 @@ func NewService() *Service {
 }
 
 // GetMetrics - returns all metrics for the given ID
-func (service *Service) GetMetrics(ID uint) ([]Metric, error) {
+func (service *Service) GetMetrics(ID string) ([]Metric, error) {
 	// TODO: This should maybe take a date range as well
 
-	sensorDataList, err := service.danaltoClient.GetDeviceData("U2VhbXVzQm9ubmVyOmFycmFubW9yZUlvVA==", "a81758fffe0346cd")
+	sensorDataList, err := service.danaltoClient.GetDeviceData("U2VhbXVzQm9ubmVyOmFycmFubW9yZUlvVA==", ID)
 	if err != nil {
 		return nil, err
 	}

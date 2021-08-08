@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/paddycakes/arranmore-api/internal/sensor"
 	"net/http"
-	"strconv"
 )
 
 import "github.com/gorilla/mux"
@@ -52,13 +51,13 @@ func (h *Handler) GetSensorMetrics(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]	// Will this be id / clientId ?
 
-	i, err := strconv.ParseUint(id, 10, 64)
-	if err != nil {
-		sendErrorResponse(w, "Unable to parse UInt from ID", err)
-		return
-	}
+	//i, err := strconv.ParseUint(id, 10, 64)
+	//if err != nil {
+	//	sendErrorResponse(w, "Unable to parse UInt from ID", err)
+	//	return
+	//}
 
-	metrics, err := h.Service.GetMetrics(uint(i))
+	metrics, err := h.Service.GetMetrics(id)
 	if err != nil {
 		sendErrorResponse(w, "Error Retrieving Sensor Metrics for Client ID", err)
 		return
