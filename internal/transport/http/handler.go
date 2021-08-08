@@ -33,7 +33,7 @@ func (h *Handler) SetupRoutes() {
 	fmt.Println("Setting Up Routes")
 	h.Router = mux.NewRouter()
 
-	h.Router.HandleFunc("/api/sensor/{id}/metrics", h.GetSensorMetrics).Methods("GET")
+	h.Router.HandleFunc("/api/{apiKey}/sensor/{deviceId}/metrics", h.GetSensorMetrics).Methods("GET")
 
 	h.Router.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -49,7 +49,8 @@ func (h *Handler) GetSensorMetrics(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	
 	vars := mux.Vars(r)
-	id := vars["id"]	// Will this be id / clientId ?
+	apiKey := vars["apiKey"]
+	deviceId := vars["deviceId"]
 
 	//i, err := strconv.ParseUint(id, 10, 64)
 	//if err != nil {
@@ -57,7 +58,7 @@ func (h *Handler) GetSensorMetrics(w http.ResponseWriter, r *http.Request) {
 	//	return
 	//}
 
-	metrics, err := h.Service.GetMetrics(id)
+	metrics, err := h.Service.GetMetrics(apiKey, deviceId)
 	if err != nil {
 		sendErrorResponse(w, "Error Retrieving Sensor Metrics for Client ID", err)
 		return
